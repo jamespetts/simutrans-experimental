@@ -726,6 +726,26 @@ public:
 	* Interface zur Bauen der Wege
 	* =============================
 	*/
+private:
+	/**
+	 *
+	 * @tparam this_T Either grund_t or const grund_t
+	 * @tparam visitor_T must offer
+	 * 		`static void action(baum_t*)` and `static void action(groundobj_t*)`, if this_T is grund_t or
+	 * 		`static void action(const baum_t*)` and `static void action(const groundobj_t*)`, if this_T is gconst grund_t
+	 * @param self
+	 * @param visitor applied to all trees and groundobjs on this ground.
+	 * @return costs of removal
+	 */
+	template<typename this_T, typename visitor_T>
+	static sint64 visit_trees_and_groundobjs(this_T& self, visitor_T& visitor);
+
+public:
+	/**
+	 * calculate the removal costs of trees and groundobjs on this tile
+	 * @return removal costs
+	 */
+	sint64 get_tree_remove_costs() const;
 
 	/**
 	 * remove trees and groundobjs on this tile
@@ -740,7 +760,7 @@ public:
 	 * @param ribi    die neuen ribis
 	 * @param player  Player building the way
 	 */
-	sint64 neuen_weg_bauen(weg_t *weg, ribi_t::ribi ribi, player_t *player, koord3d_vector_t *route = NULL);
+	sint64 neuen_weg_bauen(weg_t *weg, ribi_t::ribi ribi, player_t *player);
 
 	/**
 	 * Bauhilfsfunktion - die ribis eines vorhandenen weges werden erweitert
@@ -874,6 +894,9 @@ public:
 	void* operator new(size_t s);
 	void  operator delete(void* p, size_t s);
 
+	bool is_for_sale() const;
+
+	player_t* get_owner() const;
 };
 
 

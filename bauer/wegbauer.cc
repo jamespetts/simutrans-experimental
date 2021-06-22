@@ -2255,65 +2255,14 @@ sint64 way_builder_t::calc_costs() {
 				}
 			}
 
-			sint64 forge_cost = upgrading ? 0 : welt->get_settings().get_forge_cost(desc->get_waytype());
+			single_cost += welt->get_forge_cost(desc->get_waytype(), pos);
 
-			if(!upgrading && !(bautyp & tunnel_flag) && !(bautyp & elevated_flag) && route.get_count() > 1)
-			{
-				for(int n = 0; n < 8; n ++)
-				{
-					const koord kn = koord::neighbours[n] + pos.get_2d();
-					if(!welt->is_within_grid_limits(kn))
-					{
-						continue;
-					}
-					const koord3d kn3d(kn, welt->lookup_hgt(kn));
-					grund_t* to = welt->lookup(kn3d);
-					const weg_t* connecting_way = to ? to->get_weg(desc->get_waytype()) : NULL;
-					const ribi_t::ribi connecting_ribi = connecting_way ? connecting_way->get_ribi() : ribi_t::all;
-					const ribi_t::ribi ribi = route.get_short_ribi(i);
-					if(route.is_contained(kn3d) || (ribi_t::is_single(ribi) && ribi_t::is_single(connecting_ribi)))
-					{
-						continue;
-					}
-					const grund_t* gr_neighbour = welt->lookup_kartenboden(kn);
-					if(gr_neighbour && gr_neighbour->get_weg(desc->get_waytype()))
-					{
-						// This is a parallel way of the same type - reduce the forge cost.
-						forge_cost *= welt->get_settings().get_parallel_ways_forge_cost_percentage(desc->get_waytype());
-						forge_cost /= 100ll;
-						break;
-					}
-				}
-			}
-
-			single_cost += forge_cost;
-
-			const obj_t* obj = gr->obj_bei(0);
-			if(!upgrading && (obj == NULL || obj->get_owner() == NULL))
-			{
-				// Only add the cost of the land if this land is not already owned
-				// by either this player or some other player.
-
-				// get_land_value returns a *negative* value.
+			if(gr->is_for_sale()) {
 				single_cost -= welt->get_land_value(gr->get_pos());
 			}
-
-			// eventually we have to remove trees
-			for(  uint8 i=0;  i<gr->get_top();  i++  ) {
-				obj_t *obj = gr->obj_bei(i);
-				switch(obj->get_typ()) {
-					case obj_t::baum:
-						costs -= welt->get_settings().cst_remove_tree;
-						break;
-					case obj_t::groundobj:
-						costs += ((groundobj_t *)obj)->get_desc()->get_value();
-						break;
-					default: break;
-				}
-			}
+			costs += gr->get_tree_remove_costs();
 		}
-		if(upgrading)
-		{
+		if(upgrading) {
 			costs += replace_cost;
 		}
 		else if(!gr)
@@ -2670,7 +2619,7 @@ void way_builder_t::build_road()
 					str->set_gehweg(build_sidewalk);
 					str->set_public_right_of_way();
 				}
-				cost += gr->neuen_weg_bauen(str, route.get_short_ribi(i), player_builder, &route) - desc->get_value();
+				cost += gr->neuen_weg_bauen(str, route.get_short_ribi(i), player_builder) - desc->get_value();
 				// respect speed limit of crossing
 				str->count_sign();
 				// prissi: into UNDO-list, so we can remove it later
@@ -2831,7 +2780,7 @@ void way_builder_t::build_track()
 						delete sch;
 						return;
 					}
-					cost = gr->neuen_weg_bauen(sch, ribi, player_builder, &route) - desc->get_value();
+					cost = gr->neuen_weg_bauen(sch, ribi, player_builder) - desc->get_value();
 					// respect speed limit of crossing
 					sch->count_sign();
 					// connect canals to sea
