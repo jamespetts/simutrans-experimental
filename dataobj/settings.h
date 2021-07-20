@@ -189,6 +189,11 @@ private:
 	bool beginner_mode;
 	sint32 beginner_price_factor;
 
+	/* Industry supply model used.
+	 * 0 : Classic (no flow control?)
+	 * 1 : JIT Classic (maximum transit and storage limited)
+	 * 2 : JIT Version 2 (demand buffers with better consumption model)
+	 */
 	uint8 just_in_time;
 
 	// default 0, will be incremented after each 90 degree rotation until 4
@@ -251,8 +256,7 @@ private:
 	/* maximum number of steps for breath search */
 	sint32 max_transfers;
 
-	/**
-	 * multiplier for steps on diagonal:
+	/* multiplier for steps on diagonal:
 	 * 1024: TT-like, factor 2, vehicle will be too long and too fast
 	 * 724: correct one, factor sqrt(2)
 	 */
@@ -869,7 +873,7 @@ public:
 
 	bool get_beginner_mode() const {return beginner_mode;}
 
-	void set_just_in_time(uint8 v) { just_in_time = v; }
+	void set_just_in_time(uint8 b) { just_in_time = b; }
 	uint8 get_just_in_time() const {return just_in_time;}
 
 	void set_default_climates();
@@ -900,7 +904,7 @@ public:
 	sint64 get_starting_money(sint16 year) const;
 
 	bool get_random_pedestrians() const { return random_pedestrians; }
-	void set_random_pedestrians( bool value ) { random_pedestrians = value; }
+	void set_random_pedestrians( bool f ) { random_pedestrians = f; }
 
 	sint16 get_special_building_distance() const { return special_building_distance; }
 

@@ -17,6 +17,8 @@
 	FIX: Crash when liquidating company owning a non-empty underground depot
 	FIX: Crash when liquidating company owning a house
 	ADD: chat window transparency in network mode now controlled by theme: gui_color_chat_window_network_transparency and gui_chat_window_network_transparency
+	CHG: search dialoges now consistent design, text search, preserved during saveload
+	ADD: reselect a tool will close it (new default, set by reselect_closes_tool in menuconf.tab)
 
 
 Release of 122.0 (r9274 on 10-Oct-2020):

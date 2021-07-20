@@ -3696,9 +3696,9 @@ Starting acceleration:
 Sell for %s
 %sで売却
 cl_btn_general
-編成外観・積載率
+編成外観
 cl_btn_payload
-カテゴリ別積載状況
+積載状況
 cl_btn_formation
 編成図
 available_company_takeovers:
@@ -3847,6 +3847,8 @@ traffic settings
 交通設定
 Convoi following mode
 編成追跡時のカメラ動作
+Toolbar position:
+ツールバー表示位置：
 tooltip/coverage
 ツールチップ／有効範囲
 Grid

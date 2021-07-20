@@ -822,7 +822,6 @@ void settings_t::rdwr(loadsave_t *file)
 			file->rdwr_str(language_code_names, lengthof(language_code_names) );
 
 			// restore AI state
-			//char password[16]; // unused
 			for(  int i=0;  i<15;  i++  ) {
 				file->rdwr_bool(player_active[i] );
 				file->rdwr_byte(player_type[i] );
@@ -1980,20 +1979,22 @@ void settings_t::parse_simuconf( tabfile_t& simuconf, sint16& disp_width, sint16
 	env_t::straight_way_without_control = contents.get_int( "straight_way_without_control", env_t::straight_way_without_control ) != 0;
 
 	env_t::road_user_info = contents.get_int( "pedes_and_car_info", env_t::road_user_info ) != 0;
-	env_t::tree_info = contents.get_int( "tree_info", env_t::tree_info ) != 0;
-	env_t::ground_info = contents.get_int( "ground_info", env_t::ground_info ) != 0;
-	env_t::townhall_info = contents.get_int( "townhall_info", env_t::townhall_info ) != 0;
-	env_t::single_info = contents.get_int( "only_single_info", env_t::single_info );
+	env_t::tree_info      = contents.get_int( "tree_info",          env_t::tree_info      ) != 0;
+	env_t::ground_info    = contents.get_int( "ground_info",        env_t::ground_info    ) != 0;
+	env_t::townhall_info  = contents.get_int( "townhall_info",      env_t::townhall_info  ) != 0;
+	env_t::single_info    = contents.get_int( "only_single_info",   env_t::single_info    ) != 0;
 
-	env_t::compass_map_position = contents.get_int( "compass_map_position", env_t::compass_map_position );
+	env_t::compass_map_position    = contents.get_int( "compass_map_position",    env_t::compass_map_position );
 	env_t::compass_screen_position = contents.get_int( "compass_screen_position", env_t::compass_screen_position );
 
-	env_t::window_snap_distance = contents.get_int( "window_snap_distance", env_t::window_snap_distance );
-	env_t::window_buttons_right = contents.get_int( "window_buttons_right", env_t::window_buttons_right );
-	env_t::left_to_right_graphs = contents.get_int( "left_to_right_graphs", env_t::left_to_right_graphs );
-	env_t::window_frame_active = contents.get_int( "window_frame_active", env_t::window_frame_active );
-	env_t::second_open_closes_win = contents.get_int( "second_open_closes_win", env_t::second_open_closes_win );
-	env_t::remember_window_positions = contents.get_int( "remember_window_positions", env_t::remember_window_positions );
+	env_t::window_snap_distance      = contents.get_int( "window_snap_distance",      env_t::window_snap_distance      );
+	env_t::window_buttons_right      = contents.get_int( "window_buttons_right",      env_t::window_buttons_right      ) != 0;
+	env_t::left_to_right_graphs      = contents.get_int( "left_to_right_graphs",      env_t::left_to_right_graphs      ) != 0;
+	env_t::window_frame_active       = contents.get_int( "window_frame_active",       env_t::window_frame_active       ) != 0;
+	env_t::second_open_closes_win    = contents.get_int( "second_open_closes_win",    env_t::second_open_closes_win    ) != 0;
+	env_t::remember_window_positions = contents.get_int( "remember_window_positions", env_t::remember_window_positions ) != 0;
+	env_t::menupos                   = contents.get_int( "menubar_position",          env_t::menupos);
+	env_t::reselect_closes_tool      = contents.get_int( "reselect_closes_tool",      env_t::reselect_closes_tool ) != 0;
 
 	env_t::show_tooltips = contents.get_int( "show_tooltips", env_t::show_tooltips );
 	env_t::tooltip_delay = contents.get_int( "tooltip_delay", env_t::tooltip_delay );
@@ -2021,8 +2022,8 @@ void settings_t::parse_simuconf( tabfile_t& simuconf, sint16& disp_width, sint16
 	env_t::show_delete_buttons = contents.get_int( "show_delete_buttons", env_t::show_delete_buttons ) != 0;
 	env_t::chat_window_transparency = contents.get_int( "chat_transparency", env_t::chat_window_transparency );
 
-	env_t::hide_keyboard = contents.get_int( "hide_keyboard", env_t::hide_keyboard ) != 0;
-	env_t::numpad_always_moves_map = contents.get_int( "numpad_always_moves_map", env_t::numpad_always_moves_map );
+	env_t::hide_keyboard           = contents.get_int( "hide_keyboard", env_t::hide_keyboard ) != 0;
+	env_t::numpad_always_moves_map = contents.get_int( "numpad_always_moves_map", env_t::numpad_always_moves_map ) != 0;
 
 	env_t::player_finance_display_account = contents.get_int( "player_finance_display_account", env_t::player_finance_display_account ) != 0;
 

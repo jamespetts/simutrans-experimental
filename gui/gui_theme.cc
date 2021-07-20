@@ -569,7 +569,7 @@ bool gui_theme_t::themes_init(const char *file_name, bool init_fonts, bool init_
 	gui_theme_t::gui_drop_shadows =    contents.get_int("gui_drop_shadows",          gui_theme_t::gui_drop_shadows );
 	gui_theme_t::pressed_button_sinks = contents.get_int("pressed_button_sinks",     gui_theme_t::pressed_button_sinks );
 	env_t::bottom_window_darkness =    contents.get_int("bottom_window_darkness",    env_t::bottom_window_darkness );
-
+	env_t::menupos                   = contents.get_int("menubar_position",          env_t::menupos);
 	env_t::gui_player_color_bright =   contents.get_int("gui_player_color_bright",   env_t::gui_player_color_bright );
 	env_t::gui_player_color_dark =     contents.get_int("gui_player_color_dark",     env_t::gui_player_color_dark );
 	env_t::gui_titlebar_player_color_background_brightness = env_t::gui_player_color_bright;
